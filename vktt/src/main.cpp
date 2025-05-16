@@ -1,8 +1,10 @@
 // #include <vulkan/vulkan.h>
+#include <vulkan/vulkan_core.h>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <optional>
 #include <stdexcept>
 #include <vector>
 
@@ -60,6 +62,11 @@ class HelloTriangelApplication {
     GLFWwindow* window;
     VkInstance instance;
     VkDebugUtilsMessengerEXT debugMessenger;
+    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+
+    struct QueueFamilyIndices {
+        std::optional<uint32_t> graphicsFamily;
+    };
 
     void initWindow() {
         glfwInit();
@@ -73,6 +80,7 @@ class HelloTriangelApplication {
     void initVulkan() {
         createInstance();
         setupDebugMessenger();
+        pickPhysicalDevice();
     }
 
     void mainLoop() {
@@ -188,6 +196,61 @@ class HelloTriangelApplication {
                                         &debugMessenger) != VK_SUCCESS) {
             throw std::runtime_error("failed to set up debug messenger!");
         }
+    }
+
+    void pickPhysicalDevice() {
+        uint32_t deviceCount = 0;
+        vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+
+        if (deviceCount == 0) {
+            throw std::runtime_error(
+                "failed to find GPUs with Vulkan support!");
+        }
+
+        std::vector<VkPhysicalDevice> devices(deviceCount);
+        vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+
+        for (const auto& device : devices) {
+            if (isDeviceSuitable(device)) {
+                physicalDevice = device;
+                break;
+            }
+        }
+
+        if (physicalDevice == VK_NULL_HANDLE) {
+            throw std::runtime_error("failed to find a suitable GPU!");
+        }
+    }
+
+    bool isDeviceSuitable(VkPhysicalDevice device) {
+        // VkPhysicalDeviceProperties deviceProperties;
+        // VkPhysicalDeviceFeatures deviceFeatures;
+        // vkGetPhysicalDeviceProperties(device, &deviceProperties);
+        // vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+        // printPhysicalDeviceInfo(device, &deviceProperties, &deviceFeatures);
+
+        // return (deviceProperties.deviceType ==
+        //             VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ||
+        //         deviceProperties.deviceType ==
+        //             VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU) &&
+        //        deviceFeatures.geometryShader;
+        return true;
+    }
+
+    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) {
+        QueueFamilyIndices indices;
+        return indices;
+    }
+
+    void printPhysicalDeviceInfo(VkPhysicalDevice device,
+                                 VkPhysicalDeviceProperties* pProperties,
+                                 VkPhysicalDeviceFeatures* pFeatures) {
+        std::cout << std::endl;
+        std::cout << "Device Name: " << pProperties->deviceName << std::endl;
+        std::cout << "Device Type: " << pProperties->deviceType << std::endl;
+        std::cout << "Device Driver Version: " << pProperties->driverVersion
+                  << std::endl;
     }
 
     void checkExtesionSupport(uint32_t glfwExtensionCount,

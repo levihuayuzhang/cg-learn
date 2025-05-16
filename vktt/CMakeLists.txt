@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 4.0.0 FATAL_ERROR)
 
-project(vulkanTest)
+project(VulkanTutorial)
+
+enable_language(C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# find_package(glfw3 3.3 REQUIRED)
-# find_package(glm REQUIRED)
-# find_package(Vulkan REQUIRED)
-# set(THREADS_PREFER_PTHREAD_FLAG ON)
-# find_package(Threads REQUIRED)
+# set(CMAKE_C_COMPILER "clang")
+# set(CMAKE_CXX_COMPILER "clang++")
+# if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#     message(WARNING ${CMAKE_CXX_COMPILER_ID})
+#     message(WARNING "clang++ is recommended for this project!")
+# endif()
 
-add_executable(VulkanTest main.cpp)
-
-target_link_libraries(VulkanTest glfw vulkan glm ${CMAKE_DL_LIBS} pthread)
+add_subdirectory(src)
