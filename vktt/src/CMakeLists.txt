@@ -1,9 +1,10 @@
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
-find_package(Vulkan REQUIRED)
-# find_package(glfw3 3.3 REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
+find_package(Vulkan REQUIRED)
+find_package (tinyobjloader REQUIRED)
+find_package(PkgConfig)
 
 if(Vulkan_FOUND)
     message(STATUS "Vulkan SDK Include Dir: ${Vulkan_INCLUDE_DIRS}")
