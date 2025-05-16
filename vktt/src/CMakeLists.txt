@@ -29,13 +29,13 @@ target_compile_options(vktt PRIVATE
 # target_include_directories(vktt PRIVATE "/path/to/include")
 
 target_link_libraries(vktt PRIVATE 
-    Vulkan::Vulkan 
-    ${CMAKE_DL_LIBS} 
-    # glfw3Config.cmake or 
+    Vulkan::Vulkan
+    ${CMAKE_DL_LIBS}
+    # glfw3Config.cmake or
     # /usr/lib/cmake/glfw3/glfw3Targets.cmake
     # add_library(glfw3::glfw3 SHARED IMPORTED)
     # glfw for Arch Linux, some other package managers - glfw3 or from source - glfw3::glfw3
-    glfw 
-    glm::glm 
+    glfw
+    glm::glm
     Threads::Threads
 )
