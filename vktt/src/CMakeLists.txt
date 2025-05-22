@@ -3,7 +3,7 @@ find_package(Threads REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 find_package(Vulkan REQUIRED)
-find_package (tinyobjloader REQUIRED)
+# find_package (tinyobjloader CONFIG REQUIRED)
 find_package(PkgConfig)
 
 if(Vulkan_FOUND)
@@ -32,11 +32,9 @@ target_compile_options(vktt PRIVATE
 target_link_libraries(vktt PRIVATE 
     Vulkan::Vulkan
     ${CMAKE_DL_LIBS}
-    # glfw3Config.cmake or
-    # /usr/lib/cmake/glfw3/glfw3Targets.cmake
-    # add_library(glfw3::glfw3 SHARED IMPORTED)
-    # glfw for Arch Linux, some other package managers - glfw3 or from source - glfw3::glfw3
     glfw
     glm::glm
     Threads::Threads
+    # tinyobjloader::tinyobjloader
+    tinyobjloader
 )

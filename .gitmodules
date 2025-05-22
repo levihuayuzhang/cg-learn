@@ -1,0 +1,3 @@
+[submodule "vktt/thirdparty/tinyobjloader"]
+	path = vktt/thirdparty/tinyobjloader
+	url = https://github.com/tinyobjloader/tinyobjloader.git

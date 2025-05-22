@@ -14,3 +14,4 @@ set(CMAKE_CXX_STANDARD 17)
 # endif()
 
 add_subdirectory(src)
+add_subdirectory(thirdparty/tinyobjloader)
