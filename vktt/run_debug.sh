@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # rm -rf build
 
+glslc src/shader.vert -o build/shaders/vert.spv
+glslc src/shader.frag -o build/shaders/frag.spv
+
 cmake -S ./ -B build \
     -G Ninja \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
