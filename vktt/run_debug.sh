@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
+
 # rm -rf build
 
-glslc src/shader.vert -o build/shaders/vert.spv
-glslc src/shader.frag -o build/shaders/frag.spv
+mkdir -p build/shaders
 
 cmake -S ./ -B build \
     -G Ninja \
@@ -13,5 +13,8 @@ cmake -S ./ -B build \
 # -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
 
 cmake --build build -j$(nproc) -v
+
+glslc src/shader.vert -o build/shaders/vert.spv
+glslc src/shader.frag -o build/shaders/frag.spv
 
 ./build/src/vktt
